@@ -99,6 +99,7 @@ const deleteProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   const { id } = req.params;
   const payload = {};
+  console.log(req?.file);
   if (req.file?.path) {
     payload["imageUrl"] = req.file?.path;
   }

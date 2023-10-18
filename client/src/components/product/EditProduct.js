@@ -47,6 +47,7 @@ const EditProduct = (props) => {
   });
   const [image, setImage] = useState(null);
   console.log(image);
+
   const submit = async () => {
     setLoading(true);
     setError(null);
@@ -185,13 +186,12 @@ const EditProduct = (props) => {
                   <div className="form-group">
                     <label> Product Image</label>
                     <div className="image-upload">
-                      <input type="file" />
+                      <input
+                        type="file"
+                        onChange={(e) => setImage(e.target.files[0])}
+                      />
                       <div className="image-uploads">
-                        <img
-                          onChange={(e) => setImage(e.target.files[0])}
-                          src={Upload}
-                          alt="img"
-                        />
+                        <img src={Upload} alt="img" />
                         <h4>Drag and drop a file to upload</h4>
                       </div>
                     </div>
