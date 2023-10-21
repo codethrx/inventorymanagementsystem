@@ -205,7 +205,7 @@ const SalesR = () => {
 
   const columns = [
     {
-      title: "Product Name",
+      title: "Salesman Name",
       dataIndex: "Name",
       render: (text, record) => (
         <div className="productimgname">
@@ -218,24 +218,24 @@ const SalesR = () => {
       sorter: (a, b) => a.Name.length - b.Name.length,
     },
 
-    {
-      title: "Category",
-      dataIndex: "Category",
-      sorter: (a, b) => a.Category.length - b.Category.length,
-    },
+    // {
+    //   title: "Category",
+    //   dataIndex: "Category",
+    //   sorter: (a, b) => a.Category.length - b.Category.length,
+    // },
 
     {
-      title: "Sold Amount",
+      title: "Total Amount",
       dataIndex: "Price",
       sorter: (a, b) => a.Price.length - b.Price.length,
     },
     {
-      title: "Sold QTY",
+      title: "No. of Sales",
       dataIndex: "Unit",
       sorter: (a, b) => a.Unit.length - b.Unit.length,
     },
     {
-      title: "Instock QTY",
+      title: "Date of Joining",
       dataIndex: "Instock",
       sorter: (a, b) => a.Instock.length - b.Instock.length,
     },

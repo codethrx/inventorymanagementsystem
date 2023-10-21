@@ -3,7 +3,9 @@ const jwt = require("jsonwebtoken");
 const Product = require("../models/productModel");
 const Category = require("../models/categoryModel");
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const sendEmail = require("../utils/sendEmail");
 const createToken = (payload) => {
   return jwt.sign(payload, process.env.SECRET, { expiresIn: "3d" });
 };
@@ -140,6 +142,62 @@ const getStores = async (req, res) => {
   const stores = await User.find({ type: "Admin" });
   res.status(200).json(stores);
 };
+
+const forgetPassword = async (req, res, next) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) return res.status(400).json({ error: "User not found" });
+
+  const resetToken = await user.getResetToken();
+
+  await user.save();
+
+  const url = `http://localhost:3000/resetpassword/${resetToken}`;
+
+  const message = `Click on the link to reset your password. ${url}. If you have not request then please ignore.`;
+
+  // Send token via email
+  await sendEmail(user.email, "Reset Password", message);
+
+  res.status(200).json({
+    success: true,
+    message: `Reset Token has been sent to ${user.email}`,
+  });
+};
+
+const resetPassword = async (req, res, next) => {
+  const { token } = req.params;
+  console.log("Before", token);
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(token)
+    .digest("hex");
+  console.log("after", resetPasswordToken);
+  const user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordExpire: {
+      $gt: Date.now(),
+    },
+  });
+
+  if (!user)
+    return res.status(400).json({ error: "Token is not created or expired." });
+  // const salt = await bcrypt.genSalt(10);
+  // const hash = await bcrypt.hash(req.body.password, salt);
+  // user.password = hash;
+  user.password = req.body.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Password Changed Successfully",
+  });
+};
 module.exports = {
   signupUser,
   loginUser,
@@ -150,4 +208,6 @@ module.exports = {
   updateStore,
   getUser,
   toggleActivityStore,
+  forgetPassword,
+  resetPassword,
 };

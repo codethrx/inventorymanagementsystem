@@ -3,8 +3,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Login from "./page/account/login";
-import { SuperAdmin } from "./components/dashboard/superAdmin";
-import { Admin } from "./components/dashboard/admin";
 //
 import Register from "./page/account/register";
 import ForgetPass from "./page/account/forgetPass";
@@ -12,6 +10,8 @@ import DefaultLayout from "./components/dashboard/defaultLayout";
 import EmployeeProfile from "./components/profile/employeeProfile";
 
 import { useAuth } from "./context/auth";
+import { SuperAdmin } from "./components/dashboard/superAdmin/superAdmin";
+import { Admin } from "./components/dashboard/storeAdmin/admin";
 
 function App() {
   const { user, getDashboardURL } = useAuth();
