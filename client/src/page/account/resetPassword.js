@@ -1,20 +1,31 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { MailIcon, LoginImage } from "../../EntryFile/imagePath";
 
-const ForgetPass = () => {
+const ResetPass = () => {
   const navigate = useNavigate();
+  const { token } = useParams();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [email, setEmail] = React.useState("");
+  const [pass, setPass] = React.useState("");
   const [value, setValue] = useState(null);
+  useEffect(() => {
+    if (value) {
+      alert("Password reset completed.");
+      navigate("/");
+    }
+    if (error) {
+    }
+  }, [error, value]);
   const submit = async () => {
     setLoading(true);
     const response = await fetch(
-      "http://localhost:4000/api/user/forgetPassword",
+      "http://localhost:4000/api/user/resetpassword/" + token,
       {
-        method: "POST",
-        body: JSON.stringify({ email }),
+        method: "PUT",
+        body: JSON.stringify({ password: pass }),
         headers: {
           "Content-Type": "application/json",
         },
@@ -30,7 +41,6 @@ const ForgetPass = () => {
     if (response.ok) {
       setError(null);
       setValue(json);
-      alert("Verification email sent. Check email to verify.");
     }
     setLoading(false);
   };
@@ -46,19 +56,19 @@ const ForgetPass = () => {
             <div className="login-content">
               <div className="login-userset ">
                 <div className="login-userheading">
-                  <h3>Forgot password?</h3>
+                  <h3>Reset password?</h3>
                   <h4>
                     Don’t warry! it happens. Please enter the address <br />
                     associated with your account.
                   </h4>
                 </div>
                 <div className="form-login">
-                  <label>Email</label>
+                  <label>New Password</label>
                   <div className="form-addons">
                     <input
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      type="text"
+                      type="password"
+                      value={pass}
+                      onChange={(e) => setPass(e.target.value)}
                       placeholder="Enter your email address"
                     />
                     <img src={MailIcon} alt="img" />
@@ -67,10 +77,10 @@ const ForgetPass = () => {
                 {error && <p>{error}</p>}
                 <div className="form-login">
                   <button
-                    type="submit"
+                    // type="submit"
                     className="btn btn-login"
                     onClick={submit}
-                    disabled={loading}
+                    loading={loading}
                   >
                     Submit
                   </button>
@@ -87,4 +97,4 @@ const ForgetPass = () => {
   );
 };
 
-export default ForgetPass;
+export default ResetPass;

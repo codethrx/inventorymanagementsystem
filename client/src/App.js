@@ -6,6 +6,7 @@ import Login from "./page/account/login";
 //
 import Register from "./page/account/register";
 import ForgetPass from "./page/account/forgetPass";
+import ResetPass from "./page/account/resetPassword";
 import DefaultLayout from "./components/dashboard/defaultLayout";
 import EmployeeProfile from "./components/profile/employeeProfile";
 
@@ -30,8 +31,10 @@ function App() {
         />
         <Route path="/admin" element={user ? <Admin /> : <Navigate to="/" />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forget-password" element={<ForgetPass />} />
+        <Route path="/reset-password/:token" element={<ResetPass />} />
         {/*
-        <Route path="/forget-password" element={<ForgetPass />} /> */}
+         */}
         <Route path="/default" element={<DefaultLayout />} />
         {/* <Route path="/profile" element={<EmployeeProfile />} /> */}
       </Routes>

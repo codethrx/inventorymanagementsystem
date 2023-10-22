@@ -69,11 +69,11 @@ userSchema.statics.login = async function (email, password) {
 
   return user;
 };
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
+// userSchema.pre("save", async function (next) {
+//   if (!this.isModified("password")) return next();
+//   this.password = await bcrypt.hash(this.password, 10);
+//   next();
+// });
 userSchema.methods.getResetToken = function () {
   const resetToken = crypto.randomBytes(20).toString("hex");
   console.log("Reset token byte", resetToken);

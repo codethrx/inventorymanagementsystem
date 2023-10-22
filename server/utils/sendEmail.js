@@ -5,8 +5,8 @@ const sendEmail = async (to, subject, text) => {
     host: "smtp.ethereal.email",
     port: 587,
     auth: {
-      user: "juanita.vandervort48@ethereal.email",
-      pass: "Tkns3zRUe1ZsFJ74jq",
+      user: "garfield.satterfield@ethereal.email",
+      pass: "hcEuauGH2bUfjNTpNU",
     },
   });
 

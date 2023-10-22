@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const sendEmail = require("../utils/sendEmail");
+const Affiliation = require("../models/affiliations");
 const createToken = (payload) => {
   return jwt.sign(payload, process.env.SECRET, { expiresIn: "3d" });
 };
@@ -16,7 +17,6 @@ const loginUser = async (req, res) => {
 
   try {
     const user = await User.login(email, password);
-    console.log(user);
     if (user.type != "Super Admin" && !user.approved) {
       return res.status(400).json({ error: "User is not activated yet." });
     }
@@ -32,15 +32,20 @@ const loginUser = async (req, res) => {
 
 // signup a user
 const signupUser = async (req, res) => {
-  const { email, password, fullName, type, phone } = req.body;
+  const { email, password, fullName, type, phone, adminId } = req.body;
   // console.log(req.body);
   try {
-    if (type === "Admin") {
-      if (await User.findOne({ type, fullName }))
-        return res.status(400).json({ error: "Store already in the list." });
-    }
+    // if (type === "Admin") {
+    if (await User.findOne({ email }))
+      return res.status(400).json({ error: "User already in the list." });
+    // }
     const user = await User.signup(email, password, fullName, type, phone);
-
+    if (user.type === "Sales Person") {
+      const affiliation = await Affiliation.create({
+        adminId,
+        salesPersonId: user?._id,
+      });
+    }
     // create a token
     const token = createToken({ _id: user._id, type: user.type });
 
@@ -154,7 +159,7 @@ const forgetPassword = async (req, res, next) => {
 
   await user.save();
 
-  const url = `http://localhost:3000/resetpassword/${resetToken}`;
+  const url = `http://localhost:3000/reset-password/${resetToken}`;
 
   const message = `Click on the link to reset your password. ${url}. If you have not request then please ignore.`;
 
@@ -184,10 +189,10 @@ const resetPassword = async (req, res, next) => {
 
   if (!user)
     return res.status(400).json({ error: "Token is not created or expired." });
-  // const salt = await bcrypt.genSalt(10);
-  // const hash = await bcrypt.hash(req.body.password, salt);
-  // user.password = hash;
-  user.password = req.body.password;
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(req.body.password, salt);
+  user.password = hash;
+  // user.password = req.body.password;
   user.resetPasswordToken = undefined;
   user.resetPasswordExpire = undefined;
 
