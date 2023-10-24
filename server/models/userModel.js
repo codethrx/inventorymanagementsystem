@@ -29,6 +29,7 @@ const userSchema = new Schema({
   approved: { type: Boolean, default: false },
   resetPasswordToken: String,
   resetPasswordExpire: String,
+  adminId: String,
 });
 
 // static signup method
@@ -37,7 +38,8 @@ userSchema.statics.signup = async function (
   password,
   fullName,
   type,
-  phone
+  phone,
+  adminId
 ) {
   const exists = await this.findOne({ email });
   if (exists) {
@@ -49,6 +51,9 @@ userSchema.statics.signup = async function (
   const payload = { email, password: hash, fullName, phone };
   if (type) {
     payload["type"] = type;
+  }
+  if (adminId) {
+    payload["adminId"] = adminId;
   }
   const user = await this.create(payload);
 

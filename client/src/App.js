@@ -9,7 +9,7 @@ import ForgetPass from "./page/account/forgetPass";
 import ResetPass from "./page/account/resetPassword";
 import DefaultLayout from "./components/dashboard/defaultLayout";
 import EmployeeProfile from "./components/profile/employeeProfile";
-
+import { SalesPerson } from "./components/dashboard/salesperson";
 import { useAuth } from "./context/auth";
 import { SuperAdmin } from "./components/dashboard/superAdmin/superAdmin";
 import { Admin } from "./components/dashboard/storeAdmin/admin";
@@ -30,6 +30,10 @@ function App() {
           element={user ? <SuperAdmin /> : <Navigate to="/" />}
         />
         <Route path="/admin" element={user ? <Admin /> : <Navigate to="/" />} />
+        <Route
+          path="/salesperson"
+          element={user ? <SalesPerson /> : <Navigate to="/" />}
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/forget-password" element={<ForgetPass />} />
         <Route path="/reset-password/:token" element={<ResetPass />} />

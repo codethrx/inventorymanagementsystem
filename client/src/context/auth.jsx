@@ -24,6 +24,8 @@ export function AuthProvider({ children }) {
           return "/admin";
         case "Super Admin":
           return "/superadmin";
+        case "Sales Person":
+          return "/salesperson";
       }
     }
   };

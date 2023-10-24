@@ -10,7 +10,13 @@ const getProducts = async (req, res) => {
 
   res.status(200).json(products);
 };
+const getProductsForSalesperson = async (req, res) => {
+  const products = await Product.find({ userId: req.params.adminId }).sort({
+    createdAt: -1,
+  });
 
+  res.status(200).json(products);
+};
 // get single
 const getProduct = async (req, res) => {
   const { id } = req.params;
@@ -144,4 +150,5 @@ module.exports = {
   createProduct,
   deleteProduct,
   updateProduct,
+  getProductsForSalesperson,
 };

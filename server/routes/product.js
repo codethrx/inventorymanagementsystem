@@ -7,8 +7,10 @@ const {
   createProduct,
   deleteProduct,
   updateProduct,
+  getProductsForSalesperson,
 } = require("../controllers/productController");
 const router = express.Router();
+router.get("/salespersonproducts/:adminId", getProductsForSalesperson);
 router.use(require("../middleware/requireAuth"));
 router.get("/:id", getProduct);
 router.delete("/:id", deleteProduct);

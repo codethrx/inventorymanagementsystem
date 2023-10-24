@@ -13,6 +13,7 @@ const {
   toggleActivityStore,
   resetPassword,
   forgetPassword,
+  getSalesperson,
 } = require("../controllers/userController");
 const router = express.Router();
 //routes
@@ -27,6 +28,7 @@ router.delete("/delete-store/:id", deleteStore);
 router.put("/update-store/:id", updateStore);
 router.put("/toggle-activity/:id", toggleActivityStore);
 router.get("/get-stores", getStores);
+router.get("/get-salesperson/:id", getSalesperson);
 //for testing...
 router.delete("/del", truncateUsers);
 

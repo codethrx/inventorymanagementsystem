@@ -24,7 +24,13 @@ const loginUser = async (req, res) => {
 
     res
       .status(200)
-      .json({ token, id: user._id, email: user.email, type: user.type });
+      .json({
+        token,
+        id: user._id,
+        email: user.email,
+        type: user.type,
+        adminId: user.adminId,
+      });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -39,13 +45,21 @@ const signupUser = async (req, res) => {
     if (await User.findOne({ email }))
       return res.status(400).json({ error: "User already in the list." });
     // }
-    const user = await User.signup(email, password, fullName, type, phone);
-    if (user.type === "Sales Person") {
-      const affiliation = await Affiliation.create({
-        adminId,
-        salesPersonId: user?._id,
-      });
-    }
+    const user = await User.signup(
+      email,
+      password,
+      fullName,
+      type,
+      phone,
+      adminId
+    );
+    // if (user.type === "Sales Person") {
+    //   const affiliation = await Affiliation.create({
+    //     adminId,
+    //     salesPersonId: user?._id,
+    //   });
+    // }
+
     // create a token
     const token = createToken({ _id: user._id, type: user.type });
 
@@ -147,7 +161,10 @@ const getStores = async (req, res) => {
   const stores = await User.find({ type: "Admin" });
   res.status(200).json(stores);
 };
-
+const getSalesperson = async (req, res) => {
+  const stores = await User.find({ adminId: req.params.id });
+  res.status(200).json(stores);
+};
 const forgetPassword = async (req, res, next) => {
   const { email } = req.body;
 
@@ -215,4 +232,5 @@ module.exports = {
   toggleActivityStore,
   forgetPassword,
   resetPassword,
+  getSalesperson,
 };

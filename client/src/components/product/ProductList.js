@@ -26,6 +26,7 @@ import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 import ProductDetails from "./productDetails";
 import { useAuth } from "../../context/auth";
+import { useLocation } from "react-router-dom";
 const ProductList = ({
   categories,
   products,
@@ -35,6 +36,8 @@ const ProductList = ({
   const [inputfilter, setInputfilter] = useState(false);
   const [product, setProduct] = useState({});
   const { user } = useAuth();
+  const location = useLocation();
+  console.log(location);
   //select2
   const options = [
     { id: 1, text: "Choose Product", text: "Choose Product" },
@@ -279,36 +282,40 @@ const ProductList = ({
               <img src={EyeIcon} alt="img" />
             </span>
 
-            <a
-              className="me-3"
-              onClick={() => {
-                setProduct(data);
-                handleEditProductModal();
-              }}
-            >
-              <img src={EditIcon} alt="img" />
-            </a>
-            <span
-              className="confirm-text pointer"
-              onClick={async () => {
-                const response = await fetch(
-                  "http://localhost:4000/api/products/" + data._id,
-                  {
-                    method: "DELETE",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${user.token}`,
-                    },
-                  }
-                );
-                const json = await response.json();
-                if (response.ok) {
-                  setRefetchFlagForProducts(!refetchFlagForProducts);
-                }
-              }}
-            >
-              <img src={DeleteIcon} alt="img" />
-            </span>
+            {location.pathname === "/admin" && (
+              <>
+                <a
+                  className="me-3"
+                  onClick={() => {
+                    setProduct(data);
+                    handleEditProductModal();
+                  }}
+                >
+                  <img src={EditIcon} alt="img" />
+                </a>
+                <span
+                  className="confirm-text pointer"
+                  onClick={async () => {
+                    const response = await fetch(
+                      "http://localhost:4000/api/products/" + data._id,
+                      {
+                        method: "DELETE",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${user.token}`,
+                        },
+                      }
+                    );
+                    const json = await response.json();
+                    if (response.ok) {
+                      setRefetchFlagForProducts(!refetchFlagForProducts);
+                    }
+                  }}
+                >
+                  <img src={DeleteIcon} alt="img" />
+                </span>
+              </>
+            )}
           </>
         </>
       ),
@@ -335,12 +342,14 @@ const ProductList = ({
               <h6>Manage your products</h6>
             </div>
             {/* add new product */}
-            <div className="page-btn ">
-              <a className="btn btn-added" onClick={handleProductModal}>
-                <img src={PlusIcon} alt="img" className="me-1" />
-                Add New Product
-              </a>
-            </div>
+            {location.pathname === "/admin" && (
+              <div className="page-btn ">
+                <a className="btn btn-added" onClick={handleProductModal}>
+                  <img src={PlusIcon} alt="img" className="me-1" />
+                  Add New Product
+                </a>
+              </div>
+            )}
           </div>
 
           {/* /product list */}

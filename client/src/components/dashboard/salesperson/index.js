@@ -10,7 +10,7 @@ import CategoryList from "../../product/CategoryList";
 import PrintBarcode from "../../product/PrintBarcode";
 import ImportProduct from "../../product/ImportProduct";
 import StoreList from "../../store/StoreList";
-// import SalesList from "../../sales/saleslist";
+import SalesList from "../../sales/saleslist";
 import UserList from "../../people/UserList";
 import SalesR from "../../report/sales";
 import EmployeeProfile from "../../profile/employeeProfile";
@@ -18,22 +18,16 @@ import { useAuth } from "../../../context/auth";
 import { toast } from "react-toastify";
 import Taxrates from "../../tax/taxrates";
 import Invertry from "../../report/inventry";
-import SalesPersonList from "../../salesperson/Salespersonlist";
-export function Admin() {
+// import { useAuth } from "../../../context/auth";
+export function SalesPerson() {
   const [path, setPath] = useState("dashboard");
   const { user } = useAuth();
-  console.log(user);
-  const navigate = useNavigate();
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
   const [refetchFlag, setRefetchFlag] = useState(false);
-  const [refetchFlagForSalesPerson, setRefetchFlagForSalesperson] =
-    useState(false);
-  const [salesPerson, setSalesPerson] = useState([]);
+  const [products, setProducts] = useState([]);
   const [refetchFlagForProducts, setRefetchFlagForProducts] = useState(false);
-  const getSalesperson = async () => {
+  const getProducts = async () => {
     const response = await fetch(
-      "http://localhost:4000/api/user/get-salesperson/" + user?.id,
+      "http://localhost:4000/api/products/salespersonproducts/" + user?.adminId,
       {
         method: "GET",
         // headers: {
@@ -42,38 +36,13 @@ export function Admin() {
       }
     );
     const json = await response.json();
-    setSalesPerson(json);
-  };
-  useEffect(() => {
-    getSalesperson();
-  }, [refetchFlagForSalesPerson]);
-  const getCategories = async () => {
-    const response = await fetch("http://localhost:4000/api/categories", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    const json = await response.json();
-    setCategories(json);
-  };
-  useEffect(() => {
-    getCategories();
-  }, [refetchFlag]);
-  const getProducts = async () => {
-    const response = await fetch("http://localhost:4000/api/products", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-    const json = await response.json();
     setProducts(json);
   };
   useEffect(() => {
     getProducts();
   }, [refetchFlagForProducts]);
-  console.log(products);
+  const navigate = useNavigate();
+
   const handleNavigate = () => {
     // navigate("/pos");
     toast.warn("Coming Soon");
@@ -85,7 +54,7 @@ export function Admin() {
 
   return (
     <div className="main-wrapper">
-      <Header updatePath={updatePath} />
+      {/* <Header updatePath={updatePath} /> */}
 
       <div className="sidebar " id="sidebar">
         <Scrollbars>
@@ -137,7 +106,7 @@ export function Admin() {
                       </li>
                       <li
                         className={path == "categorylist" ? "active" : ""}
-                        onClick={() => setPath("salesperson")}
+                        onClick={() => setPath("sales person")}
                       >
                         <a>
                           <FeatherIcon icon="codepen" />
@@ -303,7 +272,7 @@ export function Admin() {
       <div>
         {path == "productlist" ? (
           <ProductList
-            categories={categories}
+            categories={[]}
             products={products}
             refetchFlagForProducts={refetchFlagForProducts}
             setRefetchFlagForProducts={setRefetchFlagForProducts}
@@ -312,7 +281,7 @@ export function Admin() {
           <></>
         )}
       </div>
-      <div>
+      {/* <div>
         {path == "categorylist" ? (
           <CategoryList
             categories={categories}
@@ -322,13 +291,14 @@ export function Admin() {
         ) : (
           <></>
         )}
-      </div>
+      </div> */}
       <div>{path == "printbarcode" ? <PrintBarcode /> : <></>}</div>
       <div>{path == "importproduct" ? <ImportProduct /> : <></>}</div>
+      <div>{path === "sales person" && <h2>Sales perosn</h2>}</div>
 
       {/* sales */}
       <div>{path == "store" ? <StoreList /> : <></>}</div>
-      {/* <div>{path == "saleslist" ? <SalesList /> : <></>}</div> */}
+      <div>{path == "saleslist" ? <SalesList /> : <></>}</div>
 
       <div>{path == "userlist" ? <UserList /> : <></>}</div>
       <div>{path == "salesreport" ? <SalesR /> : <></>}</div>
@@ -336,15 +306,6 @@ export function Admin() {
       <div>{path == "taxreport" ? <Taxrates /> : <></>}</div>
       <div>{path == "profile" ? <EmployeeProfile /> : <></>}</div>
       <div>{path == "inventoryReport" ? <Invertry /> : <></>}</div>
-      <div>
-        {path === "salesperson" && (
-          <SalesPersonList
-            refetchFlag={refetchFlagForSalesPerson}
-            setRefetchFlag={setRefetchFlagForSalesperson}
-            stores={salesPerson}
-          />
-        )}
-      </div>
     </div>
   );
 }
