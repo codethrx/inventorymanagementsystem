@@ -27,6 +27,14 @@ const Register = () => {
       alert("Enter all fields to continue");
       return;
     }
+    if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        input.email
+      )
+    ) {
+      alert("Enter a valid email id to continue");
+      return;
+    }
     // setLoading(true);
     const response = await fetch("http://localhost:4000/api/user/signup", {
       method: "POST",

@@ -9,6 +9,12 @@ const ForgetPass = () => {
   const [email, setEmail] = React.useState("");
   const [value, setValue] = useState(null);
   const submit = async () => {
+    if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test()
+    ) {
+      alert("Enter a valid email id to continue");
+      return;
+    }
     setLoading(true);
     const response = await fetch(
       "http://localhost:4000/api/user/forgetPassword",
