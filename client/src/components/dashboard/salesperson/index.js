@@ -80,7 +80,7 @@ export function SalesPerson() {
 
                   {/* products */}
                   <li className="submenu-open">
-                    <h6 className="submenu-hdr">Products</h6>
+                    <h6 className="submenu-hdr">Products & Sales</h6>
                     <ul>
                       {/* product list */}
                       <li
@@ -93,91 +93,7 @@ export function SalesPerson() {
                         </a>
                       </li>
 
-                      {/* product category list */}
-
-                      <li
-                        className={path == "categorylist" ? "active" : ""}
-                        onClick={() => setPath("categorylist")}
-                      >
-                        <a>
-                          <FeatherIcon icon="codepen" />
-                          <span>Category</span>
-                        </a>
-                      </li>
-                      <li
-                        className={path == "categorylist" ? "active" : ""}
-                        onClick={() => setPath("sales person")}
-                      >
-                        <a>
-                          <FeatherIcon icon="codepen" />
-                          <span>Sales Person</span>
-                        </a>
-                      </li>
-                      {/* barcode */}
-                      <div className="">
-                        {/* <li
-                          className={path == "printbarcode" ? "active" : ""}
-                          onClick={() => setPath("printbarcode")}
-                        >
-                          <a>
-                            <FeatherIcon icon="align-justify" />
-                            <span>Print Barcode</span>
-                          </a>
-                        </li> */}
-
-                        {/* import products */}
-
-                        <li
-                          className={path == "importproduct" ? "active" : ""}
-                          onClick={() => setPath("importproduct")}
-                        >
-                          <a>
-                            <FeatherIcon icon="minimize-2" />
-                            <span>Import Products</span>
-                          </a>
-                        </li>
-                      </div>
-                    </ul>
-                  </li>
-
-                  {/* sales */}
-
-                  <li className="submenu-open">
-                    <h6 className="submenu-hdr">Sales</h6>
-                    <ul>
-                      <li
-                        className={path == "saleslist" ? "active" : ""}
-                        onClick={() => setPath("saleslist")}
-                      >
-                        <a>
-                          <FeatherIcon icon="shopping-cart" />
-                          <span>Sales & invoice</span>
-                        </a>
-                      </li>
-
-                      {/* user */}
-                      <li
-                        className={path == "userlist" ? "active" : ""}
-                        onClick={() => setPath("userlist")}
-                      >
-                        <a>
-                          <FeatherIcon icon="user-check" />
-
-                          <span>Salesman</span>
-                        </a>
-                      </li>
-
-                      {/* invoice */}
-                      {/* <li
-                        className={path == "invoicereport" ? "active" : ""}
-                        onClick={() => setPath("invoicereport")}
-                      >
-                        <a>
-                          <FeatherIcon icon="shopping-cart" />
-                          <span>Invoice</span>
-                        </a>
-                      </li> */}
-                      {/* pos */}
+                      {/* Sale point */}
                       <li
                         className={path == "pos" ? "active" : ""}
                         onClick={handleNavigate}
@@ -201,21 +117,11 @@ export function SalesPerson() {
                       >
                         <a>
                           <FeatherIcon icon="shopping-cart" />
-                          <span>Salesmen Report</span>
+                          <span>Report</span>
                         </a>
                       </li>
 
                       {/* user */}
-                      <li
-                        className={path == "inventoryReport" ? "active" : ""}
-                        onClick={() => setPath("inventoryReport")}
-                      >
-                        <a>
-                          <FeatherIcon icon="user-check" />
-
-                          <span>Inventory Report</span>
-                        </a>
-                      </li>
                     </ul>
                   </li>
 
@@ -242,18 +148,8 @@ export function SalesPerson() {
                   <li className="submenu-open">
                     <h6 className="submenu-hdr">Settings</h6>
                     <ul>
-                      <li
-                        className={path == "taxreport" ? "active" : ""}
-                        onClick={() => setPath("taxreport")}
-                      >
-                        <a>
-                          <FeatherIcon icon="bar-chart" />
-                          <span>Tax Rates </span>
-                        </a>
-                      </li>
-
                       {/* logout */}
-                      <li onClick={logoutUser}>
+                      <li onClick={logoutUser} className="pointer">
                         <FeatherIcon icon="log-out" />
                         <span>Logout</span>{" "}
                       </li>

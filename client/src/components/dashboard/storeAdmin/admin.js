@@ -263,8 +263,16 @@ export function Admin() {
                           <FeatherIcon icon="bar-chart" />
                           <span>Tax Rates </span>
                         </a>
+                      </li>{" "}
+                      <li
+                        className={path == "profile" ? "active" : ""}
+                        onClick={() => setPath("profile")}
+                      >
+                        <a>
+                          <FeatherIcon icon="bar-chart" />
+                          <span>Profile </span>
+                        </a>
                       </li>
-
                       {/* logout */}
                       <li onClick={logoutUser} className="pointer">
                         <a>
@@ -314,7 +322,6 @@ export function Admin() {
 
       <div>{path == "userlist" ? <UserList /> : <></>}</div>
       <div>{path == "salesreport" ? <SalesR /> : <></>}</div>
-      {/*  <div>{path == "settings" ? <EmailSettings /> : <></>}</div>*/}
       <div>{path == "taxreport" ? <Taxrates /> : <></>}</div>
       <div>{path == "profile" ? <EmployeeProfile /> : <></>}</div>
       <div>{path == "inventoryReport" ? <Invertry /> : <></>}</div>

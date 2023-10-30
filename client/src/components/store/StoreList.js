@@ -89,18 +89,19 @@ const StoreList = ({ stores, refetchFlag, setRefetchFlag }) => {
       title: "Action",
       render: (data) => (
         <>
-          <button
+          <img
+            src={EditIcon}
+            alt="img"
+            className="me-3"
             onClick={() => {
               setStoreId(data._id);
               handleStoreModal();
             }}
-            className="me-3"
-          >
-            <img src={EditIcon} alt="img" />
-          </button>
-          <button
+          />
+          <img
+            src={DeleteIcon}
+            alt="img"
             className="confirm-text"
-            to="#"
             onClick={async () => {
               const response = await fetch(
                 "http://localhost:4000/api/user/delete-store/" + data._id,
@@ -113,9 +114,7 @@ const StoreList = ({ stores, refetchFlag, setRefetchFlag }) => {
                 setRefetchFlag(!refetchFlag);
               }
             }}
-          >
-            <img src={DeleteIcon} alt="img" />
-          </button>
+          />
         </>
       ),
     },
