@@ -51,8 +51,8 @@ const AddStore = (props) => {
         <div className="content">
           <div className="page-header">
             <div className="page-title">
-              <h4>Store Management</h4>
-              <h6>Add/Update Store</h6>
+              <h4>Salesman Management</h4>
+              <h6>Add/Update Salesman</h6>
             </div>
           </div>
           {/* /add */}
@@ -61,7 +61,7 @@ const AddStore = (props) => {
               <div className="row">
                 <div className="col-lg-3 col-sm-6 col-12">
                   <div className="form-group">
-                    <label>Store Name</label>
+                    <label>Salesman Name</label>
                     <input
                       type="text"
                       value={input.fullName}
@@ -117,21 +117,7 @@ const AddStore = (props) => {
                     />
                   </div>
                 </div>
-                {/* <div className="col-lg-12">
-                  <div className="form-group">
-                    <label> Store Image</label>
-                    <div className="image-upload">
-                      <input
-                        type="file"
-                        onChange={(e) => setFile(e.target.files[0])}
-                      />
-                      <div className="image-uploads">
-                        <img src={Upload} alt="img" />
-                        <h4>Drag and drop a file to upload</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
+
                 {error && <p>{error?.error}</p>}
                 <div className="col-lg-12">
                   <button
