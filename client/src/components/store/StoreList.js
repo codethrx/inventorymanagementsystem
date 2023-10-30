@@ -85,40 +85,40 @@ const StoreList = ({ stores, refetchFlag, setRefetchFlag }) => {
 
       render: (e, record) => <ToggleStatusStore data={e} />,
     },
-    // {
-    //   title: "Action",
-    //   render: (data) => (
-    //     <>
-    //       <button
-    //         onClick={() => {
-    //           setStoreId(data._id);
-    //           handleStoreModal();
-    //         }}
-    //         className="me-3"
-    //       >
-    //         <img src={EditIcon} alt="img" />
-    //       </button>
-    //       <button
-    //         className="confirm-text"
-    //         to="#"
-    //         onClick={async () => {
-    //           const response = await fetch(
-    //             "http://localhost:4000/api/user/delete-store/" + data._id,
-    //             {
-    //               method: "DELETE",
-    //             }
-    //           );
-    //           const json = await response.json();
-    //           if (response.ok) {
-    //             setRefetchFlag(!refetchFlag);
-    //           }
-    //         }}
-    //       >
-    //         <img src={DeleteIcon} alt="img" />
-    //       </button>
-    //     </>
-    //   ),
-    // },
+    {
+      title: "Action",
+      render: (data) => (
+        <>
+          <button
+            onClick={() => {
+              setStoreId(data._id);
+              handleStoreModal();
+            }}
+            className="me-3"
+          >
+            <img src={EditIcon} alt="img" />
+          </button>
+          <button
+            className="confirm-text"
+            to="#"
+            onClick={async () => {
+              const response = await fetch(
+                "http://localhost:4000/api/user/delete-store/" + data._id,
+                {
+                  method: "DELETE",
+                }
+              );
+              const json = await response.json();
+              if (response.ok) {
+                setRefetchFlag(!refetchFlag);
+              }
+            }}
+          >
+            <img src={DeleteIcon} alt="img" />
+          </button>
+        </>
+      ),
+    },
   ];
 
   const handleStoreModal = () => setEditStoreModal(!editStoreModal);

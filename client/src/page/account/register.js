@@ -137,7 +137,7 @@ const Register = () => {
                   <div className="signinform text-center">
                     <h4>
                       Already a user?{" "}
-                      <Link to="/login" className="hover-a">
+                      <Link to="/" className="hover-a">
                         Sign In
                       </Link>
                     </h4>
