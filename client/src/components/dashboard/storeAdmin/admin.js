@@ -21,7 +21,7 @@ import Invertry from "../../report/inventry";
 import SalesPersonList from "../../salesperson/Salespersonlist";
 export function Admin() {
   const [path, setPath] = useState("dashboard");
-  const { user } = useAuth();
+  const { user, logoutUser } = useAuth();
   console.log(user);
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
@@ -284,7 +284,7 @@ export function Admin() {
                       </li>
 
                       {/* logout */}
-                      <li>
+                      <li onClick={logoutUser}>
                         <a>
                           <FeatherIcon icon="log-out" />
                           <span>Logout</span>{" "}

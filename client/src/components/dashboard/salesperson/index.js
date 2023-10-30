@@ -21,7 +21,7 @@ import Invertry from "../../report/inventry";
 // import { useAuth } from "../../../context/auth";
 export function SalesPerson() {
   const [path, setPath] = useState("dashboard");
-  const { user } = useAuth();
+  const { user, logoutUser } = useAuth();
   const [refetchFlag, setRefetchFlag] = useState(false);
   const [products, setProducts] = useState([]);
   const [refetchFlagForProducts, setRefetchFlagForProducts] = useState(false);
@@ -253,11 +253,9 @@ export function SalesPerson() {
                       </li>
 
                       {/* logout */}
-                      <li>
-                        <a>
-                          <FeatherIcon icon="log-out" />
-                          <span>Logout</span>{" "}
-                        </a>
+                      <li onClick={logoutUser}>
+                        <FeatherIcon icon="log-out" />
+                        <span>Logout</span>{" "}
                       </li>
                     </ul>
                   </li>

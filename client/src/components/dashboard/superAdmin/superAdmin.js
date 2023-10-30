@@ -17,8 +17,10 @@ import EmployeeProfile from "../../profile/employeeProfile";
 import { toast } from "react-toastify";
 import StoreReport from "../../report/storeReport";
 import DashboardSP from "./dashboardSuperAdmin";
+import { useAuth } from "../../../context/auth";
 export function SuperAdmin() {
   const [path, setPath] = useState("dashboard");
+  const { logoutUser } = useAuth();
   const [refetchFlag, setRefetchFlag] = useState(false);
   const [stores, setStores] = useState([]);
   const navigate = useNavigate();
@@ -98,11 +100,9 @@ export function SuperAdmin() {
                     <h6 className="submenu-hdr">Settings</h6>
                     <ul>
                       {/* logout */}
-                      <li>
-                        <a>
-                          <FeatherIcon icon="log-out" />
-                          <span>Logout</span>{" "}
-                        </a>
+                      <li onClick={logoutUser}>
+                        <FeatherIcon icon="log-out" />
+                        <span>Logout</span>{" "}
                       </li>
                     </ul>
                   </li>
