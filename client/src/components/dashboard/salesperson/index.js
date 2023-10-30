@@ -54,7 +54,7 @@ export function SalesPerson() {
 
   return (
     <div className="main-wrapper">
-      {/* <Header updatePath={updatePath} /> */}
+      <Header updatePath={updatePath} />
 
       <div className="sidebar " id="sidebar">
         <Scrollbars>
