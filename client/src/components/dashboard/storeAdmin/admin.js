@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import Taxrates from "../../tax/taxrates";
 import Invertry from "../../report/inventry";
 import SalesPersonList from "../../salesperson/Salespersonlist";
+import SalesList from "../../sales/saleslist";
 export function Admin() {
   const [path, setPath] = useState("dashboard");
   const { user, logoutUser } = useAuth();
@@ -135,27 +136,8 @@ export function Admin() {
                           <span>Category</span>
                         </a>
                       </li>
-                      <li
-                        className={path == "categorylist" ? "active" : ""}
-                        onClick={() => setPath("salesperson")}
-                      >
-                        <a>
-                          <FeatherIcon icon="codepen" />
-                          <span>Sales Person</span>
-                        </a>
-                      </li>
-                      {/* barcode */}
-                      <div className="">
-                        {/* <li
-                          className={path == "printbarcode" ? "active" : ""}
-                          onClick={() => setPath("printbarcode")}
-                        >
-                          <a>
-                            <FeatherIcon icon="align-justify" />
-                            <span>Print Barcode</span>
-                          </a>
-                        </li> */}
 
+                      <div className="">
                         {/* import products */}
 
                         <li
@@ -188,8 +170,8 @@ export function Admin() {
 
                       {/* user */}
                       <li
-                        className={path == "userlist" ? "active" : ""}
-                        onClick={() => setPath("userlist")}
+                        className={path == "salesperson" ? "active" : ""}
+                        onClick={() => setPath("salesperson")}
                       >
                         <a>
                           <FeatherIcon icon="user-check" />
@@ -284,7 +266,7 @@ export function Admin() {
                       </li>
 
                       {/* logout */}
-                      <li onClick={logoutUser}>
+                      <li onClick={logoutUser} className="pointer">
                         <a>
                           <FeatherIcon icon="log-out" />
                           <span>Logout</span>{" "}
@@ -328,7 +310,7 @@ export function Admin() {
 
       {/* sales */}
       <div>{path == "store" ? <StoreList /> : <></>}</div>
-      {/* <div>{path == "saleslist" ? <SalesList /> : <></>}</div> */}
+      <div>{path == "saleslist" ? <SalesList /> : <></>}</div>
 
       <div>{path == "userlist" ? <UserList /> : <></>}</div>
       <div>{path == "salesreport" ? <SalesR /> : <></>}</div>

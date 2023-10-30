@@ -65,7 +65,7 @@ const SalesList = ({ stores, refetchFlag, setRefetchFlag }) => {
 
   const columns = [
     {
-      title: "Store Name",
+      title: "Salesman Name",
       dataIndex: "storeName",
       sorter: (a, b) => a.storeName.length - b.storeName.length,
     },
@@ -89,18 +89,19 @@ const SalesList = ({ stores, refetchFlag, setRefetchFlag }) => {
       title: "Action",
       render: (data) => (
         <>
-          <button
+          <img
+            src={EditIcon}
+            alt="img"
+            className="me-3 "
             onClick={() => {
               setStoreId(data._id);
               handleStoreModal();
             }}
-            className="me-3"
-          >
-            <img src={EditIcon} alt="img" />
-          </button>
-          <button
-            className="confirm-text"
-            to="#"
+          />
+
+          <img
+            src={DeleteIcon}
+            alt="img"
             onClick={async () => {
               const response = await fetch(
                 "http://localhost:4000/api/user/delete-store/" + data._id,
@@ -113,9 +114,7 @@ const SalesList = ({ stores, refetchFlag, setRefetchFlag }) => {
                 setRefetchFlag(!refetchFlag);
               }
             }}
-          >
-            <img src={DeleteIcon} alt="img" />
-          </button>
+          />
         </>
       ),
     },
@@ -130,13 +129,13 @@ const SalesList = ({ stores, refetchFlag, setRefetchFlag }) => {
         <div className="content">
           <div className="page-header">
             <div className="page-title">
-              <h4>Store List</h4>
-              <h6>Manage your Store</h6>
+              <h4>Salesman List</h4>
+              <h6>Manage your Salesman</h6>
             </div>
             <div className="page-btn">
               <a className="btn btn-added" onClick={handleAddStoreModal}>
                 <img src={PlusIcon} alt="img" className="me-1" />
-                Add Store
+                Add Salesman
               </a>
             </div>
           </div>

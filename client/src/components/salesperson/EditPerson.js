@@ -58,8 +58,9 @@ const EditStore = (props) => {
         <div className="content">
           <div className="page-header">
             <div className="page-title">
-              <h4>Store Management {props.storeId}</h4>
-              <h6>Edit/Update Store</h6>
+              {/* <h4>Salesman Management {props.storeId}</h4> */}
+              <h4>Salesman Management </h4>
+              <h6>Edit/Update Saleman</h6>
             </div>
           </div>
           {/* /add */}
@@ -68,7 +69,7 @@ const EditStore = (props) => {
               <div className="row">
                 <div className="col-lg-3 col-sm-6 col-12">
                   <div className="form-group">
-                    <label>Store Name</label>
+                    <label>Salesman Name</label>
                     <input
                       type="text"
                       value={input.fullName}
