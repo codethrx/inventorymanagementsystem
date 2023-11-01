@@ -234,17 +234,17 @@ const Header = ({ updatePath }) => {
                   </div>
                 </div>
                 <hr className="m-0" />
-                <a className="dropdown-item" onClick={handleProfile}>
+                {/* <a className="dropdown-item" onClick={handleProfile}>
                   <i className="me-2" data-feather="user" /> My Profile
-                </a>
+                </a> */}
 
-                <Link
+                {/* <Link
                   className="dropdown-item"
                   to="/dream-pos/settings/generalsettings"
                 >
                   <i className="me-2" data-feather="settings" />
                   Settings
-                </Link>
+                </Link> */}
                 <hr className="m-0" />
                 <button
                   className="dropdown-item logout pb-0"
